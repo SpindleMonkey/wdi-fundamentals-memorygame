@@ -71,6 +71,16 @@ img {
   margin: 40px 8px 0 8px;
 }
 
+button {
+  font-family: "Droid Sans", sans-serif;
+  font-size: 18px;
+  margin: 20px;
+  padding: 5px;
+  border: 2px solid #00A6B3;;
+  background: white;
+  color: #00A6B3;
+}
+
 .copyright {
   font-family: "Raleway",sans-serif;
   float: left;

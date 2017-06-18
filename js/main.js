@@ -21,21 +21,29 @@ var cards = [
   }
 ]
 var cardsInPlay = [];
+var matchesMade = 0;
 
 var checkForMatch = function() {
   if (cardsInPlay.length === 2) {
-    if (cardsInPlay[0] === cardsInPlay[1]) {
-      alert("You found a match!");
-    } else {
-      alert("Sorry, try again.");
+    if (cardsInPlay[0].length === cardsInPlay[1].length) {
+      // - either both kings or both queens
+      // - now check to see if they picked 2 differnet cards, or the same card twice!
+      if (cardsInPlay[0].charCodeAt(cardsInPlay[0].length - 1) !== cardsInPlay[1].charCodeAt(cardsInPlay[1].length - 1)) {
+        matchesMade += 1;
+        grammarPolice = matchesMade === 1 ? " match" : " matches";
+        alert("You've made " + matchesMade + grammarPolice + " in a row!");
+        return;
+      }
     }
+    matchesMade = 0;
+    alert("Sorry, try again.");
   }
 }
 
 var flipCard = function() {
   var cardId = this.getAttribute('data-id');
   this.setAttribute('src', cards[cardId].cardImage);
-  cardsInPlay.push(cards[cardId].rank);
+  cardsInPlay.push(cards[cardId].rank + cardId);
   checkForMatch();
 }
 
@@ -49,5 +57,16 @@ var createBoard = function() {
     document.getElementById('game-board').appendChild(cardElement);
   }
 }
+
+var clearBoard = function() {
+  var imgList = document.getElementsByTagName('img');
+  for (var i = 0; i < imgList.length; i++) {
+    imgList[i].setAttribute('src', 'images/back.png');
+  }
+  cardsInPlay = [];
+}
+
+var playAgain = document.querySelector('button');
+playAgain.addEventListener('click', clearBoard);
 
 createBoard();
