@@ -26,13 +26,17 @@ var matchesMade = 0;
 var checkForMatch = function() {
   if (cardsInPlay.length === 2) {
     if (cardsInPlay[0].length === cardsInPlay[1].length) {
-      // - either both kings or both queens
+      // - either both kings or both queens--being lazy here because I should really parse the string rather than use length
       // - now check to see if they picked 2 differnet cards, or the same card twice!
       if (cardsInPlay[0].charCodeAt(cardsInPlay[0].length - 1) !== cardsInPlay[1].charCodeAt(cardsInPlay[1].length - 1)) {
         matchesMade += 1;
         grammarPolice = matchesMade === 1 ? " match" : " matches";
         alert("You've made " + matchesMade + grammarPolice + " in a row!");
         return;
+      }
+      else {
+        // you picked the same card twice!
+        cardsInPlay.pop();
       }
     }
     matchesMade = 0;
